@@ -1,9 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+//引入nprogress进度条
+import NProgress from 'nprogress'
+//引入nprogress进度条的样式
+import 'nprogress/nprogress.css'
 import person from '@/views/person/person'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
+  // mode: 'history',//开启了history模式，去除了#，
   routes: [
     {
       path: '/',
@@ -24,6 +29,35 @@ export default new Router({
           path: '/home',
           name: 'HelloWorld',
           component: () => import('@/components/index'), 
+          redirect:'/home/index',
+          children:[
+            {
+              path: '/home/index',
+              name: 'index',
+              component: () => import('@/views/home/index'), 
+            },
+            {
+              path: '/home/select',
+              name: 'select',
+              component: () => import('@/views/home/select'), 
+            },{
+              path: '/home/four',
+              name: 'four',
+              component: () => import('@/views/home/four'), 
+            },{
+              path: '/home/two',
+              name: 'two',
+              component: () => import('@/views/home/two'), 
+            },{
+              path: '/home/three',
+              name: 'three',
+              component: () => import('@/views/home/three'), 
+            },{
+              path: '/home/five',
+              name: 'five',
+              component: () => import('@/views/home/five'), 
+            }
+          ]
         }, {
           path: 'person',
           name: 'person',
@@ -93,4 +127,23 @@ export default new Router({
       component: () => import('@/views/404'), 
     }
   ]
+  
 })
+router.beforeEach((to, from, next) => {
+  //	开启进度条
+    NProgress.start()
+  //	获取是否有token
+  let isLogin = sessionStorage.getItem('islogin');
+    // 如果已经就是要去login了，就不需要拦截了
+    if (to.path === '/login' || isLogin) {
+      next()
+    }else {
+      next('/login')
+    }
+    
+  });
+  router.afterEach(() => {
+    //	关闭进度条
+      NProgress.done()
+    })
+export default  router

@@ -121,11 +121,15 @@ const store = new Vuex.Store({
         unDoneLen(state){
             // filter返回的是一个新数组
             // return state.list.filter(item=>item.done===false).length
-            let arr =  state.list.filter(item=>
-                item.done === false
-            )
+            // let arr =  state.list.filter(item=>
+            //     item.done === false
+            // )
+            let arr1 =  state.list.filter((item) => {
+                return item.done === false
+            })
             // console.log(arr,'arr')
-            return arr.length
+            return arr1.length
+      
         },
          // 按需切换
         changeListView(state){

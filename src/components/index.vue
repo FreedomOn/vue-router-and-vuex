@@ -1,76 +1,121 @@
 <template>
-    <div>
-        这是首页展示内容
-        <button @click="go"> 跳转到新闻页面</button>
-        <div>
-          <el-button type="primary" @click="out">退出</el-button>
-        </div>
-        <div>vuex---------------------</div>
-        <Add></Add>
-        <Subtra></Subtra>
+  <div class="content">
+    <div class="left">
+      <el-menu
+        :default-active="key"
+        class="el-menu-vertical-demo"
+        @open="handleOpen"
+        @close="handleClose"
+        @select="select"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+      >
+        <el-submenu index="1">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>导航一</span>
+          </template>
+          <el-menu-item-group>
+            <router-link to="/home/index" exact>
+              <el-menu-item index="1-1">首页vuexTodo</el-menu-item>
+            </router-link>
+            <router-link to="/home/select">
+              <el-menu-item index="1-2">选项2</el-menu-item>
+            </router-link>
+            <el-submenu index="1-4">
+              <template slot="title">选项4</template>
+              <router-link to="/home/four">
+                <el-menu-item index="1-4-1">选项4.1</el-menu-item>
+              </router-link>
+            </el-submenu>
+          </el-menu-item-group>
+        </el-submenu>
+        <router-link to="/home/two">
+          <el-menu-item index="2">
+            <i class="el-icon-menu"></i>
+            <span slot="title">导航二</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="/home/three">
+          <el-menu-item index="3">
+            <i class="el-icon-document"></i>
+            <span slot="title">导航三</span>
+          </el-menu-item>
+        </router-link>
+        <router-link to="/home/five">
+          <el-menu-item index="4">
+            <i class="el-icon-setting"></i>
+            <span slot="title">导航五</span>
+          </el-menu-item>
+        </router-link>
+      </el-menu>
     </div>
+    <div class="right">
+      <router-view></router-view>
+      <!-- <Add/> -->
+    </div>
+  </div>
 </template>
 <script>
-import Add from '@/views/vuex/add.vue'
-import Subtra from '@/views/vuex/subtra.vue'
+// import Add from "@/views/vuex/add.vue";
+// import Subtra from "@/views/vuex/subtra.vue";
 export default {
-  components:{
-    Add,
-    Subtra
-  },
-  data () {
+  // components: {
+  //   Add,
+  //   Subtra
+  // },
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
-    }
+      msg: "Welcome to Your Vue.js App",
+      key: "1-1"
+    };
   },
-  mounted(){
+  created() {
+   
+  },
+  mounted() {
     // 在index路由定义的一些元信息 放在meta信息
     // console.log(this.$route)
+     let newKey = localStorage.getItem("key");
+    console.log(newKey, "newkey");
+    this.key = newKey;
+    console.log(this.key, "this.key");
   },
-  methods:{
-    go:function(){
-      console.log(this)
-      // 通过路径跳转
-      // this.$router.push({
-      //    path:"/newview/123"
-      // })
-      // 通过名字跳转
-      // this.$router.push({
-      //    name:"newview"
-      // })
-      // 通过params传参  动态路由的传参
-      // this.$router.push({
-      //    name:"newview",
-      //    params:{
-      //      id:456
-      //    }
-      // })
-      // 通过query传参  动态路由的传参
-      this.$router.push({
-         name:"newview",
-         params:{
-           id:456
-         },
-         query:{
-           name:'小白',
-           age:'18'
-         }
-      })
-      // 替换
-      // 替换是不会回到首页的
-      // this.$router.replace({
-      //   path:"/newview/123",
-      //    query:{
-      //      name:'小白',
-      //      age:'18'
-      //    }
-      // })
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
     },
-    out:function(){
-      console.log('退出')
-      sessionStorage.removeItem('islogin')
-        this.$router.push({ path: '/login' })
-    }
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    select(key, keyPath) {
+      console.log(key, keyPath);
+      // 刷新页面之后又问题哦
+      localStorage.setItem("key", key);
+      let newKey = localStorage.getItem("key");
+      console.log(newKey, "newkey");
+      this.key = newKey;
+      console.log(this.key, "this.key");
+    },
   }
-}
+};
 </script>
+<style scoped>
+.content {
+  width: 100%;
+  height: 525px;
+}
+.left {
+  width: 30%;
+  height: 100%;
+  float: left;
+  background: #545c64;
+}
+.right {
+  width: 70%;
+  height: 100%;
+  float: left;
+  background: bisque;
+}
+</style>

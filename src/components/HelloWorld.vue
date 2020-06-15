@@ -6,6 +6,7 @@
       <router-link to='/person'>个人</router-link>
       <router-link to='/tip'>提示</router-link>
       <router-link to='/news'>新闻</router-link>  
+      <el-button type="primary" @click="out">退出</el-button>
     </div>
     <div class="bottom">
           <router-view></router-view>
@@ -27,7 +28,15 @@ export default {
     // console.log(this.$route)
   },
   methods:{
-    
+    out: function() {
+      console.log("退出");
+      sessionStorage.removeItem("islogin");
+      localStorage.removeItem('key')
+      this.$router.push(
+        { path: "/login" },
+        this.$message.success("退出成功了")
+      );
+    }
   }
 }
 </script>

@@ -7,6 +7,7 @@
           <router-link to='/news/photo'> photo</router-link>
       </div>
       <div class="right">
+          <div>嵌套路由</div>
           <router-view></router-view>
       </div>
     </div>

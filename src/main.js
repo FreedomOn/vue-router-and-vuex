@@ -12,10 +12,12 @@ import ant from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css';
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN' 
+import axios from 'axios'
 Vue.config.productionTip = false;
 Vue.use(ant)
 Vue.use(ElementUI, { locale })
 Vue.use (Vuex)
+Vue.prototype.axios = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -24,25 +26,14 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
-router.beforeEach((to,from,next)=>{
-  console.log('beforeEach-----------')
-  console.log(from,to)
-  let isLogin = sessionStorage.getItem('islogin');
-  if(isLogin == 0){
-    console.log('进来了吗')
-    // 登录
-    if(to.path === '/login'){
-      next({path:'/'})
-    }else{
-      next()
-    }
-  }else{
-    console.log('没进来 ')
-    if(to.path === '/login'){
-      next()
-    }else{
-      next('/login')
-    }
-  }
+// router.beforeEach((to,from,next)=>{
+//   console.log('beforeEach-----------')
+//   console.log(to)
+//   let isLogin = sessionStorage.getItem('islogin');
+//   if(to.path === '/login' || isLogin){
+//     next()
+//   }else{
+//     next('/login')
+//   }
   
-})
+// })
