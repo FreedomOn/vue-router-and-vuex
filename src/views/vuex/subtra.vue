@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3>当前最新的count值为：{{count}}</h3>
+    <h3>当前最新的count值为：{{addsub.count}}</h3>
     <h3>{{showNum}}</h3>
     <el-button @click="sub1">-1</el-button>
     <el-button @click="sub2">-N</el-button>
@@ -13,7 +13,7 @@ import { mapState, mapMutations, mapActions,mapGetters } from "vuex";
 export default {
   // 通过计算属性 利用展开运算符把store中 state中的某一个值拿到直接使用
   computed: {
-    ...mapState(["count"]),
+    ...mapState(["addsub"]),
     ...mapGetters(['showNum'])
   },
   data() {

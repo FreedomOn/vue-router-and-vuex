@@ -1,6 +1,6 @@
 <template>
   <div style="margin-top:20px;margin-left:20px;">
-    <a-input placeholder="新增todolist" :value=inputValue  @change="inputchange" class="my_ipt" />
+    <a-input placeholder="新增todolist" :value=todo.inputValue  @change="inputchange" class="my_ipt" />
      <a-button type="primary" @click="addTodoList">新增事项</a-button>
     <a-list class="dt_list" bordered :data-source="changeListView">
       <a-list-item slot="renderItem" slot-scope="item">
@@ -12,9 +12,9 @@
       <div slot="footer" class="footer">
         <span>{{unDoneLen}}条剩余</span>
         <a-button-group>
-          <a-button @click="changeList('all')" :type="viewkey === 'all' ? 'primary' :'defaault'">全部</a-button>
-          <a-button @click="changeList('undone')" :type="viewkey === 'undone' ? 'primary' :'defaault'">未完成</a-button>
-          <a-button @click="changeList('done')" :type="viewkey === 'done' ? 'primary' :'defaault'">已完成</a-button>
+          <a-button @click="changeList('all')" :type="todo.viewkey === 'all' ? 'primary' :'defaault'">全部</a-button>
+          <a-button @click="changeList('undone')" :type="todo.viewkey === 'undone' ? 'primary' :'defaault'">未完成</a-button>
+          <a-button @click="changeList('done')" :type="todo.viewkey === 'done' ? 'primary' :'defaault'">已完成</a-button>
         </a-button-group>
         <a-button type="link" @click="clear">清除已完成</a-button>
       </div>
@@ -26,7 +26,7 @@ import { Button } from "ant-design-vue";
 import { mapState ,mapGetters} from 'vuex'
 export default {
   computed:{
-    ...mapState(['inputValue','viewkey']),
+    ...mapState(['todo']),
     ...mapGetters(['unDoneLen','changeListView'])
   },
   data() {
@@ -44,7 +44,8 @@ export default {
       this.$store.commit('setInputValue',ev.target.value)
     },
     addTodoList(){
-      if(this.inputValue.trim().length<=0){
+      console.log(this.todo.inputValue.length)
+      if(this.todo.inputValue.trim().length<=0){
           return this.$message.warning('不能输入为空')
       }
       this.$store.commit('addItem')

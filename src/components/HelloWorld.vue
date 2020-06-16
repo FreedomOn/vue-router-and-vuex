@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   name: 'HelloWorld',
   data () {
@@ -32,6 +33,8 @@ export default {
       console.log("退出");
       sessionStorage.removeItem("islogin");
       localStorage.removeItem('key')
+      Cookies.remove('token');
+      location.reload()
       this.$router.push(
         { path: "/login" },
         this.$message.success("退出成功了")

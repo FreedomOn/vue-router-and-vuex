@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>当前最新的count值为：{{$store.state.count}}</h3>
+        <h3>当前最新的count值为：{{$store.state.addsub.count}}</h3>
         <h3>{{$store.getters.showNum}}</h3>
         <el-button @click="add">+1</el-button>
         <el-button @click="addn">+N</el-button>

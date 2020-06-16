@@ -23,14 +23,17 @@
             <router-link to="/home/select">
               <el-menu-item index="1-2">选项2</el-menu-item>
             </router-link>
-            <el-submenu index="1-4">
+            <!-- <el-submenu index="1-4">
               <template slot="title">选项4</template>
               <router-link to="/home/four">
                 <el-menu-item index="1-4-1">选项4.1</el-menu-item>
               </router-link>
-            </el-submenu>
+            </el-submenu> -->
           </el-menu-item-group>
         </el-submenu>
+
+
+
         <router-link to="/home/two">
           <el-menu-item index="2">
             <i class="el-icon-menu"></i>
@@ -49,6 +52,22 @@
             <span slot="title">导航五</span>
           </el-menu-item>
         </router-link>
+
+        <el-submenu index="5">
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span>权限管理</span>
+          </template>
+          <el-menu-item-group>
+            <router-link to="/page" >
+              <el-menu-item index="5-1">page权限</el-menu-item>
+            </router-link>
+            <router-link to="/home/btnpermissions">
+              <el-menu-item index="5-2">btn权限</el-menu-item>
+            </router-link>
+          </el-menu-item-group>
+        </el-submenu>
+
       </el-menu>
     </div>
     <div class="right">
@@ -78,19 +97,19 @@ export default {
     // 在index路由定义的一些元信息 放在meta信息
     // console.log(this.$route)
      let newKey = localStorage.getItem("key");
-    console.log(newKey, "newkey");
+    // console.log(newKey, "newkey");
     this.key = newKey;
-    console.log(this.key, "this.key");
+    // console.log(this.key, "this.key");
   },
   methods: {
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     select(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
       // 刷新页面之后又问题哦
       localStorage.setItem("key", key);
       let newKey = localStorage.getItem("key");

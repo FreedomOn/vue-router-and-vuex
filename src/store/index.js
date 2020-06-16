@@ -1,148 +1,61 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from 'axios'
-// import request from '@/views/utils/request'
+
+import todo from './modules/todo'
+import addsub from './modules/addsub'
+import routerData from './modules/routerData'
+import role from './modules/roles'
+import Cookies from 'js-cookie' //引进cookie
 Vue.use(Vuex)
 
 
 const store = new Vuex.Store({
-    state:{
-        count:0,
-        // 所有的任务列表
-        list:[],
-        // 文本框的内容
-        inputValue:'',
-        // 下一个id
-        nextId:5,
-        // 默认展示的数据
-        viewkey:'all'
-    },
-    // 只有mutations定义的函数才有权利去修改state中的数据
-    mutations:{
-        // mutations中不允许写异步的代码
-        add(state){
-            // setTimeout(()=>{
-            //     state.count++
-            // },1000)
-            state.count++
-        },
-        // 可以触发mutations的时候传递参数
-        addN(state,step){
-            state.count+=step
-        },
-        sub(state){
-            state.count--
-        },
-        subN(state,step){
-            state.count-=step
-        },
-        // 为list进行赋值
-        initList(state,list){
-            state.list = list;
-        },
-        // 为store中的inputvalue赋值
-        setInputValue(state,val){
-            state.inputValue = val
-        },
-        // 添加列表
-        addItem(state){
-            const obj = {
-                id:state.nextId,
-                title:state.inputValue.trim(),
-                done:false
-            }
-            state.list.push(obj);
-            state.nextId ++;
-            state.inputValue = '';
-        },
-        // 删除列表
-        removeItem(state,id){
-            state.list.forEach((item,index)=>{
-                if(item.id === id){
-                    state.list.splice(index,1)
-                }
-            })
-        },
-        // 改变复选框状态
-        changeStatus(state,paylaod){
-            state.list.forEach((item,index)=>{
-                if(item.id === paylaod.id){
-                    state.list[index].done = paylaod.status
-                }
-            })
-        },
-        // 清除已完成
-        clear(state){
-            state.list = state.list.filter(item=>item.done === false)
-        },
-        // 修改视图的关键字
-        changeViewKey(state,key){
-            state.viewkey = key
-        },
-    },
-    actions:{
-        // 在actions中 不能直接修改state中的数据
-        // 必须通过context.commit 触发某一个mutations才行
-        addAsync(context){
-            // context一般不写
-            setTimeout(()=>{
-                context.commit('add')  
-            },1000)
-        },
-        // actions中传递参数
-        addNAsync(context,step){
-            setTimeout(()=>{
-            context.commit('addN',step)
-            },1000)
-        },
-        subAsync({commit}){
-            setTimeout(()=>{
-                commit('sub')  
-            },1000)
-        },
-        subNAsync({commit},step){
-            setTimeout(()=>{
-                commit('subN',step)  
-            },1000)
-        },
-        // todo案例  请求json数据
-        getList({commit}){
-            axios.get("../../../static/list.json").then(({data})=>{
-                commit('initList',data) 
-                console.log(data)
-            })
-        }
-    },
-    getters:{
-        showNum(state){
-            return '当前最新数量是【'+state.count+'】'
-        },
-        // 获取剩余的条数
-        unDoneLen(state){
-            // filter返回的是一个新数组
-            // return state.list.filter(item=>item.done===false).length
-            // let arr =  state.list.filter(item=>
-            //     item.done === false
-            // )
-            let arr1 =  state.list.filter((item) => {
-                return item.done === false
-            })
-            // console.log(arr,'arr')
-            return arr1.length
-      
-        },
-         // 按需切换
-        changeListView(state){
-            if(state.viewkey === 'all'){
-                return state.list
-            }else if(state.viewkey === 'undone'){
-                return state.list.filter(item=>!item.done)
-            }else if(state.viewkey === 'done'){
-                return state.list.filter(item=>item.done)
-            }
-            return state.list
-        }
+  state: {
+    // token  // 刷新页面或者在新标签页打开，从cookie获取初始token
+    token: Cookies.get('token')
+  },
+  // 只有mutations定义的函数才有权利去修改state中的数据
+  mutations: {
+    // 设置token  // 引用‘js-cookie’模块，存储 token 到cookie
+    setToken(state, token) {
+      state.token = token
+      // 从现在开始 3小时后token过期
+      Cookies.set('token', token, {
+        expires: 1 / 24
+      });
     }
+  },
+  actions: {
+    // 异步执行
+    setToken({commit}, token) {
+      return new Promise((resolve, reject) => {
+        commit('setToken', token)
+        resolve()
+      })
+    }
+  },
+  getters: {
+    // addsub
+    count: state => state.addsub.count,
+    // todo
+    list: state => state.todo.list,
+    inputValue: state => state.todo.inputValue,
+    nextId: state => state.todo.nextId,
+    viewkey: state => state.todo.viewkey,
+    // token
+    token: state => state.token,
+    // role
+    info: state => state.role.info,
+    // routerdata
+    routers: state => state.routerData.routers,
+    addRouters: state => state.routerData.addRouters,
+  },
+  modules: {
+    todo,
+    addsub,
+    routerData,
+    role
+  },
 })
 
 export default store
