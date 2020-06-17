@@ -125,7 +125,7 @@ export default {
 
         localStorage.setItem("key", "1-1");
         this.$message.success("恭喜你，登录成功"); //登录成功的提示
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/index" });
       } else {
         this.$message.error("账号或者密码错误"); //账号密码错误时的提示
       }

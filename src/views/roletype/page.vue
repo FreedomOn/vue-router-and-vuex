@@ -51,11 +51,7 @@
         }
         this.$store.dispatch('setRole', this.options)
 
-        //  刷新 tabnav 权限管理测试需要
-        this.$store.dispatch('removeOtherTab', {tabItem: {
-            title: 'pageControl',
-            path: '/pagePermissions'
-          }, router: this.$router})
+     
       }
     }
   }

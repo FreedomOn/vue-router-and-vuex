@@ -11,6 +11,7 @@ export default {
         role: 'superAdmin',
         permissions: '超级管理员'
       }
+      // 将登陆者的信息存储到session中
       sessionStorage.setItem('info', JSON.stringify(store.getters.info))
     },
     setRole (state, options) {  // 切换角色，测试权限管理
