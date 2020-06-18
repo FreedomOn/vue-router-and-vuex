@@ -13,8 +13,10 @@ export default {
 <style scoped>
 p{
   height: 60px;
+  width: 100%;
+  background: rgb(35, 48, 48);
   line-height: 60px;
-  text-align: left;
+  text-align: center;
   font-size: 12px;
   color: #999999;
 }

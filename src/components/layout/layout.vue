@@ -49,6 +49,9 @@
     position: absolute;
     transition: all 0.3s;
   }
+  .content{
+    background: rgb(84, 92, 100);
+  }
 </style>
 <style lang="scss">
   * {

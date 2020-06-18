@@ -119,12 +119,15 @@ export default {
       let res = await login(postdata);
       console.log(res);
       if (res.status === 0) {
-        sessionStorage.setItem("islogin", res.status);
+        // sessionStorage.setItem("islogin", res.status);
         //假 token  仅供测试使用  将name设置为token 存储在 store，仅为测试效果，实际存储token以后台返回为准
         that.$store.dispatch('setToken', this.loginForm.loginName)
 
         localStorage.setItem("key", "1-1");
         this.$message.success("恭喜你，登录成功"); //登录成功的提示
+
+        sessionStorage.setItem('role', 'ok');
+
         this.$router.push({ path: "/index" });
       } else {
         this.$message.error("账号或者密码错误"); //账号密码错误时的提示

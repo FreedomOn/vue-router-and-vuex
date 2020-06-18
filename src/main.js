@@ -35,22 +35,43 @@ router.beforeEach((to, from, next) => {
   console.log(store.getters.token, 'token')
   console.log(to, 'to')
   console.log(from, 'from')
+  let role = sessionStorage.getItem('role')
   //	开启进度条
   NProgress.start()
-
-
-  if (to.path === '/login') {
-    next()
-  } else {
-    if(!store.getters.token){
-      store.dispatch('setToken', store.getters.token)
-      next('/login')
-    }else{
+  if (role) {
+    console.log('登陆过了')
+    if (to.path === '/login') {
       next()
+    } else {
+      next()
+      // if (store.getters.token) {
+      //   !async function getAddRouters() {
+      //     // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息，这里用假数据赋值
+      //     await store.dispatch('getInfo', {
+      //       role: "superAdmin",
+      //       permissions: "超级管理员"
+      //     })
+      //     // 通过权限筛选新路由表
+      //     await store.dispatch('newRoutes', store.getters.info.role)
+      //     console.log(store.getters.addRouters)
+      //     await router.addRoutes(store.getters.addRouters) // 动态加载新路由表
+      //     next({
+      //       path: '/index'
+      //     })
+      //   }()
+      // } else {
+      //   next()
+      // }
     }
-    
-  }
+  } else {
+    console.log('没有登录')
+    if (to.path === '/login') {
+      next()
+    } else {
+      next('/login')
+    }
 
+  }
 });
 
 // router.beforeEach((to, from, next) => {

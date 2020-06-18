@@ -18,7 +18,7 @@
               <span slot="title">{{ $t(`routeNmae.${item.name}`) }}</span>
             </template>
 
-            <menu-tree :menuData="item.children"></menu-tree>
+
 
           </el-submenu>
           <el-menu-item :index="item.path" v-else>
@@ -28,10 +28,39 @@
         </template>-->
 
   
-        <router-link to="/index">
+          <!-- 一级菜单 -->
+          <!-- <el-submenu 
+            :index="item.id + ''" 
+            v-for="item in menulist" 
+            :key="item.id">
+      
+            <template slot="title">
+          
+              <i :class="['iconfont',item.icon]"></i>
+              
+              <span>{{item.authName}}</span>
+            </template>
+           
+            <el-menu-item
+              :index="'/' + subItem.path"
+              v-for="subItem in item.children"
+              :key="subItem.id"
+              @click="saveNavState('/' + subItem.path)">
+              <template slot="title">
+             
+                <i class="el-icon-menu"></i>
+                
+                <span>{{subItem.authName}}</span>
+              </template>
+            </el-menu-item>
+          </el-submenu> -->
+
+
+        <!-- <router-link to="/index">
             <el-menu-item index="1-1"> <i class="el-icon-location"></i>首页vuexTodo</el-menu-item>
-        </router-link>
-        <el-submenu index="2">
+        </router-link> -->
+
+        <!-- <el-submenu index="2">
           <template slot="title">
             <i class="el-icon-message"></i>权限管理
           </template>
@@ -39,64 +68,13 @@
            <router-link to="/rolepage">
               <el-menu-item index="2-1">page权限</el-menu-item>
             </router-link>
-             <!-- <router-link to="/rolebtn"> -->
+             <router-link to="/rolebtn">
               <el-menu-item index="2-2">btn权限</el-menu-item>
-             <!-- </router-link> -->
+             </router-link>
           
-        </el-submenu>
-        <router-link to="/person">
-          <el-menu-item index="3"> <i class="el-icon-location"></i>个人管理</el-menu-item>
-        </router-link>
-        <router-link to="/tip">
-          <el-menu-item index="4"> <i class="el-icon-location"></i>提示页面</el-menu-item>
-        </router-link>
-        <!-- <el-submenu index="1">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>导航一</span>
-          </template>
-          <el-menu-item-group>
-            <router-link to="/index" exact>
-              <el-menu-item index="1-1">首页vuexTodo</el-menu-item>
-            </router-link>
-            <router-link to="/select">
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </router-link>
-          </el-menu-item-group>
-        </el-submenu>-->
-        <!-- <router-link to="/two">
-          <el-menu-item index="2">
-            <i class="el-icon-menu"></i>
-            <span slot="title">上传</span>
-          </el-menu-item>
-        </router-link>-->
-        <!-- <router-link to="/three">
-          <el-menu-item index="3">
-            <i class="el-icon-document"></i>
-            <span slot="title">编辑器</span>
-          </el-menu-item>
-        </router-link>
-        <router-link to="/five">
-          <el-menu-item index="4">
-            <i class="el-icon-setting"></i>
-            <span slot="title">系统设置</span>
-          </el-menu-item>
-        </router-link>-->
-
-        <!-- <el-submenu index="5">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span>权限管理</span>
-          </template>
-          <el-menu-item-group>
-            <router-link to="/page" >
-              <el-menu-item index="5-1">page权限</el-menu-item>
-            </router-link>
-            <router-link to="/btn">
-              <el-menu-item index="5-2">btn权限</el-menu-item>
-            </router-link>
-          </el-menu-item-group>
-        </el-submenu>-->
+        </el-submenu> -->
+          <!-- <el-menu-item index="/person"> <i class="el-icon-location"></i>个人管理</el-menu-item>
+          <el-menu-item index="/tip"> <i class="el-icon-location"></i>提示页面</el-menu-item> -->
       </el-menu>
     </div>
   </div>

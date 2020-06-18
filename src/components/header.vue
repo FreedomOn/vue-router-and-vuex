@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
    <div id='nav'>
-      <el-button type="primary" @click="out">退出</el-button>
+      <el-button type="primary" @click="out" class="btn">退出</el-button>
     </div>
     
   </div>
@@ -13,8 +13,9 @@ export default {
   methods:{
     out: function() {
       console.log("退出");
-      sessionStorage.removeItem("islogin");
+      // sessionStorage.removeItem("islogin");
       localStorage.removeItem('key')
+      sessionStorage.clear();
       Cookies.remove('token');
       location.reload()
       this.$router.push(
@@ -31,6 +32,10 @@ export default {
 #nav{
     height: 45px;
     background: azure;
+    position: relative;
 }
-
+.btn{
+    position: absolute;
+    right: 20px;
+}
 </style>
