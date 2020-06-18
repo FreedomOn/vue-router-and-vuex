@@ -15,31 +15,30 @@ let defaultRouter = [{
   children: []
 }, {
   path: '/index',
-  iconCls: 'fa fa-dashboard', // 图标样式class
+  iconCls: 'fa fa-dashboard', 
   component: layout,
   alone: true,
   children: [{
     path: '/index',
-    iconCls: 'fa fa-dashboard', // 图标样式class
+    iconCls: 'fa fa-dashboard', 
     name: 'index',
     component: () => import('@/views/home/index'),
     children: []
   }]
 },{
   path: '/index',
-  iconCls: 'fa fa-dashboard', // 图标样式class
-  component: layout,
+  iconCls: 'fa fa-dashboard', 
   alone: true,
   children: [{
     path: '/person',
-    iconCls: 'fa fa-dashboard', // 图标样式class
+    iconCls: 'fa fa-dashboard', 
     name: 'person',
     component: () => import('@/views/person/person'),
     children: []
   }]
 },{
   path: '/index',
-  iconCls: 'fa fa-dashboard', // 图标样式class
+  iconCls: 'fa fa-dashboard', 
   component: layout,
   alone: true,
   children: [{

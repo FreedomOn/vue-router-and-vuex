@@ -1,4 +1,13 @@
-{
+{   
+    "login": [
+        {
+          "id":11,
+          "username":"admin",
+          "password":"admin",
+          "msg":"登录成功",
+          "token":"admin"
+        }
+    ],
     "table": [
       {
         "id": 1,

@@ -16,36 +16,39 @@ import ant from 'ant-design-vue'
 // 导入组件库的样式表
 import 'ant-design-vue/dist/antd.css';
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from 'element-ui/lib/locale/lang/zh-CN' 
+import locale from 'element-ui/lib/locale/lang/zh-CN'
 import axios from 'axios'
 
 Vue.config.productionTip = false;
 Vue.use(ant)
-Vue.use(ElementUI, { locale })
-Vue.use (Vuex)
+Vue.use(ElementUI, {
+  locale
+})
+Vue.use(Vuex)
 Vue.prototype.axios = axios
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  store,
-  components: { App },
-  template: '<App/>'
-})
+
 
 
 
 router.beforeEach((to, from, next) => {
-  console.log(store.getters.token,'token')
+  console.log(store.getters.token, 'token')
+  console.log(to, 'to')
+  console.log(from, 'from')
   //	开启进度条
   NProgress.start()
-  //	获取是否有token
-  let isLogin = sessionStorage.getItem('islogin');
-  // 如果已经就是要去login了，就不需要拦截了
-  if (to.path === '/login' || isLogin) {
+
+
+  if (to.path === '/login') {
     next()
   } else {
-    next('/login')
+    if(!store.getters.token){
+      store.dispatch('setToken', store.getters.token)
+      next('/login')
+    }else{
+      next()
+    }
+    
   }
 
 });
@@ -56,6 +59,7 @@ router.beforeEach((to, from, next) => {
 //    //	开启进度条
 //    NProgress.start()
 //   //  是否存在token
+//   console.log(store.getters.token)
 //   if (store.getters.token) { 
 //     // 触发store中得事件 设置token过期时间
 //     store.dispatch('setToken', store.getters.token)
@@ -90,4 +94,13 @@ router.beforeEach((to, from, next) => {
 router.afterEach(() => {
   //	关闭进度条
   NProgress.done()
+})
+new Vue({
+  el: '#app',
+  router,
+  store,
+  components: {
+    App
+  },
+  template: '<App/>'
 })
