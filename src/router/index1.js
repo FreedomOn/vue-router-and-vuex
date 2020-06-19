@@ -134,3 +134,103 @@ const router = new Router({
     NProgress.done()
   })
   export default router
+
+
+
+
+  // 需要 addRouter 动态加载的路由 
+// let addRouter = [{
+//   path: '/',
+//   component: layout,
+//   iconCls: 'fa fa-dashboard',
+//   alone: true,
+//   children: [{
+//     path: '/two',
+//     iconCls: 'fa fa-dashboard', // 图标样式class
+//     name: 'two',
+//     meta: {
+//       role: ['superAdmin']
+//     },
+//     component: two,
+//   }]
+// }, {
+//   path: '/',
+//   component: layout,
+//   alone: true,
+//   children: [{
+//     path: '/three',
+//     iconCls: 'fa fa-dashboard', // 图标样式class
+//     name: 'three',
+//     meta: {
+//       role: ['superAdmin', 'admin']
+//     },
+//     component: () => import('@/views/home/three'),
+//   }]
+// }, {
+//   path: '/',
+//   component: layout,
+//   alone: true,
+//   children: [{
+//     path: '/five',
+//     iconCls: 'fa fa-dashboard', // 图标样式class
+//     name: 'five',
+//     meta: {
+//       role: ['superAdmin']
+//     },
+//     component: () => import('@/views/home/five'),
+//   }]
+// }, {
+//   path: '*',
+//   redirect: '/404',
+//   hidden: true,
+//   children: []
+// }, ]
+
+// 需要 addRouter 动态加载的路由 
+// let addRouter = [{
+//   path: '/',
+//   hidden: true,
+//   component: () => import('@/components/HelloWorld'),
+//   redirect: '/home',
+//   children: [{
+//     path: '/home',
+//     name: 'HelloWorld',
+//     component: () => import('@/components/index'),
+//     children: [{ //上传超级管理员
+//         path: '/home/two',
+//         name: 'two',
+//         // 设置有权限加载的页面
+//         meta: {
+//           role: ['superAdmin']
+//         },
+//         component: () => import('@/views/home/two'),
+//       }, { //编辑器  超级管理员  管理员
+//         path: '/home/three',
+//         name: 'three',
+//         // 设置有权限加载的页面
+//         meta: {
+//           role: ['superAdmin', 'admin']
+//         },
+//         component: () => import('@/views/home/three'),
+//       }, { //系统设置超级管理员
+//         path: '/home/five',
+//         name: 'five',
+//         // 设置有权限加载的页面
+//         meta: {
+//           role: ['superAdmin']
+//         },
+//         component: () => import('@/views/home/five'),
+//       },
+//       {
+//         path: '/page',
+//         name: 'page',
+//         component: () => import('@/views/roletype/page'),
+//       },
+//       {
+//         path: '/btn',
+//         name: 'btn',
+//         component: () => import('@/views/roletype/btn'),
+//       },
+//     ]
+//   }]
+// }]
