@@ -140,7 +140,7 @@ export default {
 .bg{
     background: url(../../../static/img/login_bg.png) no-repeat ;
     width: 100%;
-    height: 578px;
+    height: 100%;
     position: relative;
     /* login_bg.png  timg.jpg*/
 }

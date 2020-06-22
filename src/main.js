@@ -41,27 +41,20 @@ router.beforeEach((to, from, next) => {
   if (role) {
     console.log('登陆过了')
     if (to.path === '/login') {
-      next()
+      next({path: '/'})
     } else {
-      next()
-      // if (store.getters.token) {
-      //   !async function getAddRouters() {
-      //     // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息，这里用假数据赋值
-      //     await store.dispatch('getInfo', {
-      //       role: "superAdmin",
-      //       permissions: "超级管理员"
-      //     })
-      //     // 通过权限筛选新路由表
-      //     await store.dispatch('newRoutes', store.getters.info.role)
-      //     console.log(store.getters.addRouters)
-      //     await router.addRoutes(store.getters.addRouters) // 动态加载新路由表
-      //     next({
-      //       path: '/index'
-      //     })
-      //   }()
-      // } else {
-      //   next()
-      // }
+     
+        // 查看是否有当前用户角色，如果没有则获取角色信息
+        if (!store.getters.info.role) {
+          getAddRouters()
+          next('/')
+        }else{
+          next()
+        }
+       
+       
+      
+     
     }
   } else {
     console.log('没有登录')
@@ -74,43 +67,20 @@ router.beforeEach((to, from, next) => {
   }
 });
 
-// router.beforeEach((to, from, next) => {
-//   console.log('w走了吗')
-//   console.log(store.getters.info.role,'aaa')
-//    //	开启进度条
-//    NProgress.start()
-//   //  是否存在token
-//   console.log(store.getters.token)
-//   if (store.getters.token) { 
-//     // 触发store中得事件 设置token过期时间
-//     store.dispatch('setToken', store.getters.token)
-//     if (to.path === '/login') {
-//       next()
-//     } else {
-//       if (!store.getters.info.role) { // 查看是否有当前用户角色，如果没有则获取角色信息
-//         !async function getAddRouters () {
-//             // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息，这里用假数据赋值
-//           await store.dispatch('getInfo',  {
-//             role: "superAdmin",
-//             permissions: "超级管理员"
-//           })
-//            // 通过权限筛选新路由表
-//           await store.dispatch('newRoutes', store.getters.info.role)
-//           console.log(store.getters.addRouters)
-//           await router.addRoutes(store.getters.addRouters) // 动态加载新路由表
-//           next({path: '/index'})
-//         }()
-//       } else {
-//         next()
-//       }
-//     }
-//   } else {
-//     if (to.path === '/login') {
-//       next()
-//     }
-//     next({path: '/login'})
-//   }
-// })
+
+async function getAddRouters() {
+  // 省略 axios 请求代码 通过 token 向后台请求用户权限等信息，这里用假数据赋值
+  await store.dispatch('getInfo', {
+    role: "superAdmin",
+    permissions: "超级管理员"
+  })
+  // 通过权限筛选新路由表
+  await store.dispatch('newRoutes', store.getters.info.role)
+  // console.log(store.getters.addRouters,'main.js')
+  await router.addRoutes(store.getters.addRouters) // 动态加载新路由表
+  
+}
+
 
 router.afterEach(() => {
   //	关闭进度条

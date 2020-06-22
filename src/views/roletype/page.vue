@@ -50,8 +50,6 @@
             }
         }
         this.$store.dispatch('setRole', this.options)
-
-     
       }
     }
   }
