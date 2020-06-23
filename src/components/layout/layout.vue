@@ -41,9 +41,6 @@ export default {
   opacity: 0;
   transform: translateY(30px);
 }
-#asideNav .el-menu .el-menu-item.is-active {
-    background-color: #56a9ff !important;
-}
 .main-enter-active {
   transition: all 0.2s;
 }

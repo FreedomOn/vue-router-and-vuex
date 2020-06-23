@@ -12,7 +12,10 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     // token  // 刷新页面或者在新标签页打开，从cookie获取初始token
-    token: Cookies.get('token')
+    token: Cookies.get('token'),
+    isCollapse: false,
+    openclose: "el-icon-s-fold",
+    // classopen:"el-icon-s-unfold"
   },
   // 只有mutations定义的函数才有权利去修改state中的数据
   mutations: {
@@ -23,15 +26,33 @@ const store = new Vuex.Store({
       Cookies.set('token', token, {
         expires: 1 / 24
       });
+    },
+    // 控制侧边栏是否展开
+    setSlider(state) {
+      state.isCollapse = !state.isCollapse
+      if(state.isCollapse === true){
+        console.log("truetrue")
+        state.openclose = 'el-icon-s-unfold'
+      }else{
+        console.log("falsefalse")
+        state.openclose = 'el-icon-s-fold'
+      }
     }
   },
   actions: {
     // 异步执行
-    setToken({commit}, token) {
+    setToken({
+      commit
+    }, token) {
       return new Promise((resolve, reject) => {
         commit('setToken', token)
         resolve()
       })
+    },
+    setSlider({
+      commit
+    }) {
+      commit('setSlider')
     }
   },
   getters: {
@@ -44,6 +65,8 @@ const store = new Vuex.Store({
     viewkey: state => state.todo.viewkey,
     // token
     token: state => state.token,
+    isCollapse: state => state.isCollapse,
+    openclose: state => state.openclose,
     // role
     info: state => state.role.info,
     // routerdata

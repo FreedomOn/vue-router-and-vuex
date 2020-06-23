@@ -123,7 +123,7 @@ export default {
         //假 token  仅供测试使用  将name设置为token 存储在 store，仅为测试效果，实际存储token以后台返回为准
         that.$store.dispatch('setToken', this.loginForm.loginName)
 
-        localStorage.setItem("key", "1-1");
+        localStorage.setItem("key", "/");
         this.$message.success("恭喜你，登录成功"); //登录成功的提示
 
         sessionStorage.setItem('role', 'ok');

@@ -47,8 +47,10 @@ router.beforeEach((to, from, next) => {
         // 查看是否有当前用户角色，如果没有则获取角色信息
         if (!store.getters.info.role) {
           getAddRouters()
+          console.log('zouzheli')
           next('/')
         }else{
+          console.log('haishi')
           next()
         }
        

@@ -1,17 +1,15 @@
 <template>
     <div>
       <template v-for="(child,index) in menuData">
-        <el-submenu v-if="child.children.length > 0" :index="child.path">
+        <el-submenu v-if="child.children.length > 0" :key="index" :index="child.path">
           <template slot="title">
-        
-             <!-- <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon> -->
+              <i :class="child.icon"></i>
             <span slot="title">{{ child.name }}</span>
           </template>
           <menu-tree :menuData="child.children"></menu-tree>
         </el-submenu>
-
-        <el-menu-item v-else :index="child.path">
-            <!-- <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon> -->
+        <el-menu-item v-else :index="child.path" :key="index">
+             <i :class="child.icon"></i>
           <span slot="title">{{ child.name }}</span>
         </el-menu-item>
       </template>

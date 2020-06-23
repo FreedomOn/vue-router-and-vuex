@@ -20,27 +20,37 @@ const routerData = {
       commit
     }, role) {
       //  通过递归路由表，删除掉没有权限的路由
-      function eachSelect(routers, userRole) {
-
+      // function eachSelect(routers, userRole) {
+      //   for (let j = 0; j < routers.length; j++) {
+      //     console.log(routers,'xunhuan')
+      //     if (routers[j].meta && routers[j].meta.role.length && routers[j].meta.role.indexOf(userRole) === -1) {
+      //       routers.splice(j, 1)
+      //       j = j !== 0 ? j - 1 : j
+      //     }
+      //     if (routers[j].children && routers[j].children.length) {
+      //       eachSelect(routers[j].children, userRole)
+      //     }
+      //   }
+      // }
+       //  通过递归路由表，删除掉没有权限的路由
+       function eachSelect(routers, userRole) {
         for (let j = 0; j < routers.length; j++) {
-
-
+          // console.log(routers,'xunhuan')
           if (routers[j].meta && routers[j].meta.role.length && routers[j].meta.role.indexOf(userRole) === -1) {
-
             routers.splice(j, 1)
-            j = j !== 0 ? j - 1 : j
-          }
-          if (routers[j].children && routers[j].children.length) {
-            eachSelect(routers[j].children, userRole)
-
+            j = j - 1 
+          }else{
+            if (routers[j].children && routers[j].children.length) {
+              eachSelect(routers[j].children, userRole)
+          } 
           }
         }
       }
       // 拷贝这个数组是因为做权限测试的时候可以从低级切回到高级角色，仅限演示，正式开发时省略这步直接使用 addRouter
       // 仅限演示
 
-
       let newArr = [...addRouter]
+      console.log(newArr,'routerdata')
       eachSelect(newArr, role)
       commit('setRouters', newArr)
 
