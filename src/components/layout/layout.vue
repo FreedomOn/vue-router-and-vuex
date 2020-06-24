@@ -1,8 +1,8 @@
 <template>
   <div id="loyout">
     <el-container>
-      <layoutAside></layoutAside>
-      <el-container>
+      <layoutAside ></layoutAside>
+      <el-container style="marginLeft:1px">
         <layoutHeader></layoutHeader>
         <el-main id="elmain">
           <transition name="main" mode="out-in">
@@ -84,5 +84,6 @@ a {
 .el-container {
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 </style>

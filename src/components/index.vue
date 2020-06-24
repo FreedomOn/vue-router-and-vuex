@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+
     <div class="left">
       <!-- el-menu的属性查看官方文档 -->
       <!-- 
@@ -43,7 +43,7 @@
         </template>
       </el-menu>
     </div>
-  </div>
+  
 </template>
 <script>
 import menuTree from "./childmenu";
@@ -108,13 +108,17 @@ export default {
 </script>
 <style lang="scss">
 .left {
-  height: 100%;
+  height: 100%; 
+  background: #545c64;
 }
+
+
+
 // 开启展开关闭动画
 .el-menu-vertical:not(.el-menu--collapse) {
-  width: 200px;
+  width: 220px;
   height: 100%;
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
 }
 // 设置左侧点击背景颜色
 #asideNav .el-menu .el-menu-item.is-active {
