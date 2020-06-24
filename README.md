@@ -1,6 +1,15 @@
 # vue-router
 
-> router
+根据权限动态生成页面
+tabnav导航
+vuex todo
+登陆  密码眼睛  session token
+全屏展示
+动画
+svg icon
+json server 配置
+json 格式数据请求
+
 
 ## Build Setup
 
@@ -24,4 +33,3 @@ npm run e2e
 npm test
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
