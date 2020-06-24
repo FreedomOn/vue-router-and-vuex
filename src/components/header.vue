@@ -13,23 +13,31 @@
       </span>
       <!-- 登录者名字 -->
       <span class="name">{{info.permissions}}</span>
-      <el-button type="primary" @click="out" class="btn">退出</el-button>
+      <el-button type="primary" size="small" @click="out" class="btn">退出</el-button>
+      <!-- 图片 -->
+      <span class="icon"><img :src="avatar"/></span>
     </div>
+     <tabNav></tabNav>
   </div>
 </template>
 
 <script>
 import Cookies from "js-cookie";
 import { mapGetters } from "vuex";
+import tabNav from './layout/tav'
 export default {
   computed: {
     ...mapGetters(["openclose","info"])
+  },
+  components:{
+    tabNav
   },
   data() {
     return {
       isfullScreen: true,
       Fullscreen:"quan",
       tip:'全屏展示',
+      avatar:'../../../static/img/user.jpg'
     };
   },
   methods: {
@@ -86,7 +94,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style    scoped>
 #nav {
   height: 45px;
   background: azure;
@@ -94,7 +102,8 @@ export default {
 }
 .btn {
   position: absolute;
-  right: 20px;
+  right: 80px;
+  top: 5px;
 }
 .hideAside {
   position: absolute;
@@ -105,15 +114,25 @@ export default {
 }
 .fullScreen{
   position: absolute;
-    right: 200px;
-    top: 0px;
-    /* background: red; */
-    font-size: 26px;
-    cursor: pointer;
+  right: 240px;
+  top: 0px;
+  /* background: red; */
+  font-size: 20px;
+  cursor: pointer;
+  top: 5px;
 }
 .name{
   position: absolute;
-    right: 110px;
+    right: 150px;
     top: 10px;
 }
+.icon{
+  position: absolute;
+  right: 20px;
+  top: 2px;
+}
+img{
+    width: 40px;
+    height: 35px;
+  }
 </style>

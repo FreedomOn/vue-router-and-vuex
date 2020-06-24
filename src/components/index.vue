@@ -9,7 +9,7 @@
         collapse  侧边栏是否展开 默认false  展开 true是合并
       -->
       <el-menu
-        :default-active="key"
+        :default-active="$route.path"
         class="el-menu-vertical"
         @select="select"
         background-color="#545c64"
@@ -61,6 +61,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$route.path,'=======')
     // 在index路由定义的一些元信息 放在meta信息
     let newKey = localStorage.getItem("key");
     console.log(newKey, "create");
@@ -72,13 +73,34 @@ export default {
     // console.log(this.$store.getters.routers,'getters')
   },
   methods: {
-    select(key, keyPath) {
+    select(key) {
       // console.log(key, keyPath);
       // localStorage.setItem("key", key);
       // let newKey = localStorage.getItem("key");
       // console.log(newKey, "newkey");
       // this.key = newKey;
       // console.log(this.key, "this.key");
+      // 点击左侧导航时  将点击的添加至store中
+        let router = this.$store.getters.routers
+        let name = ''
+        let navTitle = function (path, routerARR) {
+          for (let i = 0; i < routerARR.length; i++) {
+            if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
+              if (routerARR[i].path === path && routerARR[i].children.length < 1) {
+                name = routerARR[i].name
+                break
+              }
+              navTitle(path, routerARR[i].children)
+            }
+          }
+          return name
+        }
+        this.$store.dispatch('addTab', {
+          title: navTitle(key, router),
+          path: key
+        })
+
+
     }
   }
 };

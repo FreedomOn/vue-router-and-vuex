@@ -18,7 +18,7 @@ export const defaultRouter = [
     hidden: true,
     children: []
   },{
-    path: '/',
+    path: '/index',
     component: layout,
     // redirect: '/index',
     alone: true,  //true代表只有一级菜单  不加代表可以有好几级菜单

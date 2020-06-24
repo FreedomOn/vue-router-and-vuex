@@ -5,6 +5,8 @@ import todo from './modules/todo'
 import addsub from './modules/addsub'
 import routerData from './modules/routerData'
 import role from './modules/roles'
+// tab 组件
+import tabnav from './modules/tabNav'
 import Cookies from 'js-cookie' //引进cookie
 Vue.use(Vuex)
 
@@ -15,7 +17,6 @@ const store = new Vuex.Store({
     token: Cookies.get('token'),
     isCollapse: false,
     openclose: "el-icon-s-fold",
-    // classopen:"el-icon-s-unfold"
   },
   // 只有mutations定义的函数才有权利去修改state中的数据
   mutations: {
@@ -72,12 +73,17 @@ const store = new Vuex.Store({
     // routerdata
     routers: state => state.routerData.routers,
     addRouters: state => state.routerData.addRouters,
+    // tabnav
+    rightNav: state => state.tabnav.rightNav,
+    tabnavBox: state => state.tabnav.tabnavBox, 
+
   },
   modules: {
     todo,
     addsub,
     routerData,
-    role
+    role,
+    tabnav
   },
 })
 
