@@ -3,7 +3,7 @@ export default {
       rightNav: {},
       tabnavBox: [
         {
-          title: '主页',
+          title: '首页',
           path: '/index'
         }
       ]
@@ -36,7 +36,7 @@ export default {
       },
       removeOtherTab (state, arg) {
         state.tabnavBox = [{
-          title: 'home',
+          title: '首页',
           path: '/index'
         }]
         if (arg.all) {

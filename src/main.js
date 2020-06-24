@@ -33,8 +33,8 @@ Vue.prototype.axios = axios
 
 router.beforeEach((to, from, next) => {
   console.log(store.getters.token, 'token')
-  console.log(to, 'to')
-  console.log(from, 'from')
+  // console.log(to, 'to')
+  // console.log(from, 'from')
   let role = sessionStorage.getItem('role')
   //	开启进度条
   NProgress.start()
@@ -43,20 +43,15 @@ router.beforeEach((to, from, next) => {
     if (to.path === '/login') {
       next({path: '/'})
     } else {
-     
         // 查看是否有当前用户角色，如果没有则获取角色信息
         if (!store.getters.info.role) {
           getAddRouters()
-          console.log('zouzheli')
+          // console.log('zouzheli')
           next('/')
         }else{
-          console.log('haishi')
+          // console.log('haishi')
           next()
         }
-       
-       
-      
-     
     }
   } else {
     console.log('没有登录')

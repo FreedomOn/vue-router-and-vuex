@@ -15,7 +15,7 @@ Vue.use(Router)
 export const defaultRouter = [
   { path: '/',
     redirect: '/index',
-    hidden: true,
+    hidden: true,  //hidden 代表是否在循环时显示
     children: []
   },{
     path: '/index',
@@ -25,7 +25,7 @@ export const defaultRouter = [
     name: '首页',
     icon:'el-icon-s-home',
     children: [{
-      path: 'index',
+      path: '/index',
       name: '首页',
       icon:'el-icon-s-home',
       component: () => import('@/views/home/index'),
@@ -117,6 +117,37 @@ export const addRouter = [{
       children: [],
     }]
   },  
+  {
+    path: '/six',
+    component: layout,
+    alone: true,  //true代表只有一级菜单  不加代表可以有好几级菜单
+    name: '疾风剑豪',
+    icon:'el-icon-thumb',
+    meta: {
+      role: ['superAdmin']
+    },
+    children: [{
+      path: '/six',
+      name: '疾风剑豪',
+      icon:'el-icon-thumb',
+      component: () => import('@/views/home/six'),
+      children: [],
+    }]
+  }, 
+  {
+    path: '/seven',
+    component: layout,
+    // alone: true,  //true代表只有一级菜单  不加代表可以有好几级菜单
+    name: '英雄联盟',
+    icon:'el-icon-thumb',
+    children: [{
+      path: '/seven',
+      name: '伊泽瑞尔',
+      icon:'el-icon-thumb',
+      component: () => import('@/views/home/two'),
+      children: [],
+    }]
+  }, 
   {
     path: '/person',
     component: layout,

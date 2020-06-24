@@ -5,6 +5,7 @@
             contextmenu.prevent：vue2.0鼠标右键事件
            tabnavBox 是存储所有tabNav的数据容器，每次点击左侧菜单就会把数据添加到tabnavBox 
       -->
+      <!-- 添加动画 -->
       <transition-group name="list" tag="ul">
         <li
           v-for="(item, index) in $store.getters.tabnavBox"
@@ -13,7 +14,9 @@
           class="tabnav"
           :class="{ active: $route.path === item.path }"
         >
+            <!-- 点击跳转到对应得页面 -->
           <router-link :to="item.path">{{ item.title }}</router-link>
+          <!-- 点击去除单个tab -->
           <i @click="removeTab(item)" class="el-icon-error" v-if="index !== 0"></i>
         </li>
       </transition-group>
@@ -22,8 +25,7 @@
     <ul
       v-show="this.rightMenuShow"
       :style="{left:this.left+'px',top:this.top+'px'}"
-      class="menuBox"
-    >
+      class="menuBox">
       <li @click="removeTab($store.getters.rightNav)">
         <i class="fa fa-remove"></i>
         {{rightMenu.close }}
@@ -119,19 +121,15 @@ $bottom: bottom;
 $left: left;
 $right: right;
 $leftright: ($left, $right);
-
 %w100 {
   width: 100%;
 }
-
 %h100 {
   height: 100%;
 }
-
 %cursor {
   cursor: pointer;
 }
-
 @mixin set-value($side, $value) {
   @each $prop in $leftright {
     #{$side}-#{$prop}: $value;
@@ -158,6 +156,7 @@ $leftright: ($left, $right);
     li {
       height: 30px;
       line-height: 31px;
+      text-align: center;
       @extend %cursor;
       margin-#{$top}: 6px;
       margin-#{$right}: 5px;
@@ -165,10 +164,9 @@ $leftright: ($left, $right);
       border: 1px solid #cccccc;
 
       overflow: hidden;
-      &:not(:first-child) {
-        padding-#{$right}: 10px;
-        min-width: 80px;
-      }
+        //设置每一项的最低宽度   
+      min-width: 110px;
+     
       a {
         @include set-value(padding, 13px);
         display: inline-block;
@@ -214,7 +212,7 @@ $leftright: ($left, $right);
     padding: 7px 16px;
     @extend %cursor;
     &:hover {
-      background: #e1e6ea;
+      background: #409eff;
     }
   }
 }

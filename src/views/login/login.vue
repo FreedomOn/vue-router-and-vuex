@@ -128,7 +128,7 @@ export default {
 
         sessionStorage.setItem('role', 'ok');
 
-        this.$router.push({ path: "/index" });
+        this.$router.push({ path: "/" });
       } else {
         this.$message.error("账号或者密码错误"); //账号密码错误时的提示
       }

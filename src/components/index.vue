@@ -83,6 +83,7 @@ export default {
       // 点击左侧导航时  将点击的添加至store中
         let router = this.$store.getters.routers
         let name = ''
+        // 递归获取点击左侧导航的名字
         let navTitle = function (path, routerARR) {
           for (let i = 0; i < routerARR.length; i++) {
             if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
