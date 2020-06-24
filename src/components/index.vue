@@ -1,49 +1,47 @@
 <template>
-
-    <div class="left">
-      <!-- el-menu的属性查看官方文档 -->
-      <!-- 
+  <div class="left">
+    <!-- el-menu的属性查看官方文档 -->
+    <!-- 
         router: 是否使用 vue-router 的模式，启用该模式会在激活导航时以 index 作为 path 进行路由跳转 默认false
         unique-opened:  是否只保持一个子菜单的展开  默认false
         collapse-transition ： 是否开启折叠动画  默认 true
         collapse  侧边栏是否展开 默认false  展开 true是合并
-      -->
-      <el-menu
-        :default-active="$route.path"
-        class="el-menu-vertical"
-        @select="select"
-        background-color="#545c64"
-        text-color="rgba(255,255,255,.7)"
-        active-text-color="#ffd04b"
-        :router="true"
-        :unique-opened="true"
-        :collapse-transition="true"
-        :collapse="isCollapse"
-      >
-        <!-- 遍历根据权限生成的路由表生成菜单列表 -->
-        <!-- v-if="!item.hidden" 筛选掉带hidden属性的路由 -->
-        <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
-          <!-- 检查是否带有alone属性的一级菜单类似“主页”，还有子菜单的个数 -->
-          <el-submenu v-if="!item.alone && item.children.length>0" :key="index" :index="index+''">
-            <template slot="title">
-              <!-- <svg-icon v-if="item.meta&&item.icon" :icon-class="item.icon"></svg-icon> -->
-              <i :class="item.icon"></i>
-              <span slot="title">{{ item.name }}</span>
-            </template>
-            <!-- 子菜单组件 -->
-            <menu-tree :menuData="item.children"></menu-tree>
-          </el-submenu>
-          <!-- 一级菜单 -->
-          <!-- 循环一级菜单不带子菜单 -->
-          <el-menu-item :index="item.path" :key="index" v-else>
+    -->
+    <el-menu
+      :default-active="$route.path"
+      class="el-menu-vertical"
+      @select="select"
+      background-color="#545c64"
+      text-color="rgba(255,255,255,.7)"
+      active-text-color="#ffd04b"
+      :router="true"
+      :unique-opened="true"
+      :collapse-transition="true"
+      :collapse="isCollapse"
+    >
+      <!-- 遍历根据权限生成的路由表生成菜单列表 -->
+      <!-- v-if="!item.hidden" 筛选掉带hidden属性的路由 -->
+      <template v-for="(item,index) in $store.getters.routers" v-if="!item.hidden">
+        <!-- 检查是否带有alone属性的一级菜单类似“主页”，还有子菜单的个数 -->
+        <el-submenu v-if="!item.alone && item.children.length>0" :key="index" :index="index+''">
+          <template slot="title">
+            <!-- <svg-icon v-if="item.meta&&item.icon" :icon-class="item.icon"></svg-icon> -->
             <i :class="item.icon"></i>
-            <!-- <svg-icon v-if="item.icon" :icon-class="item.icon"></svg-icon> -->
-            <span slot="title">{{ item.name}}</span>
-          </el-menu-item>
-        </template>
-      </el-menu>
-    </div>
-  
+            <span slot="title">{{ item.name }}</span>
+          </template>
+          <!-- 子菜单组件 -->
+          <menu-tree :menuData="item.children"></menu-tree>
+        </el-submenu>
+        <!-- 一级菜单 -->
+        <!-- 循环一级菜单不带子菜单 -->
+        <el-menu-item :index="item.path" :key="index" v-else>
+          <i :class="item.icon"></i>
+          <!-- <svg-icon v-if="item.icon" :icon-class="item.icon"></svg-icon> -->
+          <span slot="title">{{ item.name}}</span>
+        </el-menu-item>
+      </template>
+    </el-menu>
+  </div>
 </template>
 <script>
 import menuTree from "./childmenu";
@@ -61,7 +59,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$route.path,'=======')
+    console.log(this.$route.path, "=======");
     // 在index路由定义的一些元信息 放在meta信息
     let newKey = localStorage.getItem("key");
     console.log(newKey, "create");
@@ -81,38 +79,37 @@ export default {
       // this.key = newKey;
       // console.log(this.key, "this.key");
       // 点击左侧导航时  将点击的添加至store中
-        let router = this.$store.getters.routers
-        let name = ''
-        // 递归获取点击左侧导航的名字
-        let navTitle = function (path, routerARR) {
-          for (let i = 0; i < routerARR.length; i++) {
-            if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
-              if (routerARR[i].path === path && routerARR[i].children.length < 1) {
-                name = routerARR[i].name
-                break
-              }
-              navTitle(path, routerARR[i].children)
+      let router = this.$store.getters.routers;
+      let name = "";
+      // 递归获取点击左侧导航的名字
+      let navTitle = function(path, routerARR) {
+        for (let i = 0; i < routerARR.length; i++) {
+          if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
+            if (
+              routerARR[i].path === path &&
+              routerARR[i].children.length < 1
+            ) {
+              name = routerARR[i].name;
+              break;
             }
+            navTitle(path, routerARR[i].children);
           }
-          return name
         }
-        this.$store.dispatch('addTab', {
-          title: navTitle(key, router),
-          path: key
-        })
-
-
+        return name;
+      };
+      this.$store.dispatch("addTab", {
+        title: navTitle(key, router),
+        path: key
+      });
     }
   }
 };
 </script>
 <style lang="scss">
 .left {
-  height: 100%; 
+  height: 100%;
   background: #545c64;
 }
-
-
 
 // 开启展开关闭动画
 .el-menu-vertical:not(.el-menu--collapse) {
@@ -126,6 +123,14 @@ export default {
 }
 .el-menu-item.is-active {
   background-color: #56a9ff !important;
+}
+.el-menu {
+  overflow: inherit;
+  border-right: none;
+}
+// 去除滚动条
+.el-menu::-webkit-scrollbar {
+  display: none;
 }
 </style>
 
