@@ -59,8 +59,8 @@ export default {
   data() {
     return {
       show: true,
-      eye: 'eyeq',
-      pwdType:'password',
+      eye: "eyeq",
+      pwdType: "password",
       loginForm: {
         loginName: "",
         loginPassword: ""
@@ -78,14 +78,14 @@ export default {
   methods: {
     //   眼睛
     showPwd() {
-      if (this.pwdType === 'password') {
-        console.log(111)
-        this.pwdType = ''
-        this.eye = 'eyeopenq'
+      if (this.pwdType === "password") {
+        console.log(111);
+        this.pwdType = "";
+        this.eye = "eyeopenq";
       } else {
-        console.log(2222)
-        this.pwdType = 'password'
-        this.eye = 'eyeq'
+        console.log(2222);
+        this.pwdType = "password";
+        this.eye = "eyeq";
       }
     },
     loginSubmit(formName) {
@@ -121,12 +121,12 @@ export default {
       if (res.status === 0) {
         // sessionStorage.setItem("islogin", res.status);
         //假 token  仅供测试使用  将name设置为token 存储在 store，仅为测试效果，实际存储token以后台返回为准
-        that.$store.dispatch('setToken', this.loginForm.loginName)
+        that.$store.dispatch("setToken", this.loginForm.loginName);
 
         localStorage.setItem("key", "/");
         this.$message.success("恭喜你，登录成功"); //登录成功的提示
 
-        sessionStorage.setItem('role', 'ok');
+        sessionStorage.setItem("role", "ok");
 
         this.$router.push({ path: "/" });
       } else {
@@ -137,20 +137,23 @@ export default {
 };
 </script>
 <style scoped>
-.bg{
-    background: url(../../../static/img/login_bg.png) no-repeat ;
-    width: 100%;
-    height: 100%;
-    position: relative;
-    /* login_bg.png  timg.jpg*/
+.bg {
+  background: url(../../../static/img/login_bg.png) no-repeat;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* login_bg.png  timg.jpg*/
 }
 .login-box {
-    position: absolute;
-    top:150px;
-    left: 370px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   /* border: 1px solid #dcdfe6; */
   width: 460px;
-  margin: 0 auto;
+  height: 300px;
+  margin: auto;
   padding: 35px 35px 15px 35px;
   border-radius: 5px;
   background: lavender;
@@ -166,11 +169,11 @@ export default {
   font-weight: bold;
 }
 .show-pwd {
-    position: absolute;
-    right: 38px;
-    top: 0px;
-    /* background: red; */
-    font-size: 16px;
-    cursor: pointer;
-  }
+  position: absolute;
+  right: 38px;
+  top: 0px;
+  /* background: red; */
+  font-size: 16px;
+  cursor: pointer;
+}
 </style>
