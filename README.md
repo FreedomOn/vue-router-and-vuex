@@ -11,6 +11,8 @@ json server 配置
 json 格式数据请求
 
 # 分支展示 
+  ## 使用github作为服务器
+    新建一个分支，将dist文件放到该分支，可以通过线上环境进行项目的访问
 
 ## Build Setup
 
