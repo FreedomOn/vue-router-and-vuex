@@ -32,6 +32,9 @@ Vue.prototype.axios = axios
 
 
 router.beforeEach((to, from, next) => {
+  if (to.name) {
+    document.title = to.name
+  }
   console.log(store.getters.token, 'token')
   // console.log(to, 'to')
   // console.log(from, 'from')
@@ -63,6 +66,7 @@ router.beforeEach((to, from, next) => {
 
   }
 });
+
 
 
 async function getAddRouters() {
