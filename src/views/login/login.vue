@@ -18,7 +18,7 @@
               type="text"
               v-model="loginForm.loginName"
               autocomplete="off"
-              placeholder="请输入用户"
+              placeholder="123456"
               style="width:300px"
             ></el-input>
           </el-col>
@@ -30,7 +30,7 @@
               v-model="loginForm.loginPassword"
               @keyup.enter.native="loginSubmit"
               autocomplete="off"
-              placeholder="密码"
+              placeholder="123456"
               style="width:300px"
             ></el-input>
             <span class="show-pwd" @click="showPwd">
@@ -53,7 +53,8 @@
 </template>
 
 <script>
-import { login } from "@/api/login.js";
+import { login,cwshilogin } from "@/api/login.js";
+import util from '../utils/crypto.js'
 export default {
   name: "login",
   data() {
@@ -62,8 +63,8 @@ export default {
       eye: "eyeq",
       pwdType: "password",
       loginForm: {
-        loginName: "",
-        loginPassword: ""
+        loginName: "123456",
+        loginPassword: "123456"
       },
       loginFormRules: {
         loginName: [
@@ -113,25 +114,35 @@ export default {
     async login() {
       let that = this;
       let postdata = {
-        username: this.loginForm.loginName,
-        password: this.loginForm.loginPassword
+         "userAccount":this.loginForm.loginName,
+         "passWord":this.loginForm.loginPassword
       };
-      let res = await login(postdata);
-      console.log(res);
-      if (res.status === 0) {
-        // sessionStorage.setItem("islogin", res.status);
-        //假 token  仅供测试使用  将name设置为token 存储在 store，仅为测试效果，实际存储token以后台返回为准
-        that.$store.dispatch("setToken", this.loginForm.loginName);
+      console.log(postdata,'postdata')
+      // let postdata1 = util.encrypt(JSON.stringify(postdata))
+      // console.log(postdata1,'postdata1')
+      // let res = await cwshilogin(postdata);
+      // console.log(res,'res');
+      
 
-        localStorage.setItem("key", "/");
-        this.$message.success("恭喜你，登录成功"); //登录成功的提示
+      that.$store.dispatch("setToken", this.loginForm.loginName);
+      localStorage.setItem("key", "/");
+      this.$message.success("恭喜你，登录成功"); //登录成功的提示
+      sessionStorage.setItem("role", "ok");
+      this.$router.push({ path: "/" });
+      // if (res.status === 0) {
+      //   // sessionStorage.setItem("islogin", res.status);
+      //   //假 token  仅供测试使用  将name设置为token 存储在 store，仅为测试效果，实际存储token以后台返回为准
+      //   that.$store.dispatch("setToken", this.loginForm.loginName);
 
-        sessionStorage.setItem("role", "ok");
+      //   localStorage.setItem("key", "/");
+      //   this.$message.success("恭喜你，登录成功"); //登录成功的提示
 
-        this.$router.push({ path: "/" });
-      } else {
-        this.$message.error("账号或者密码错误"); //账号密码错误时的提示
-      }
+      //   sessionStorage.setItem("role", "ok");
+
+      //   this.$router.push({ path: "/" });
+      // } else {
+      //   this.$message.error("账号或者密码错误"); //账号密码错误时的提示
+      // }
     }
   }
 };
